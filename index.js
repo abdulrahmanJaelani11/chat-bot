@@ -5,6 +5,24 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
+async function sendFonnte(data) {
+    const { target, message } = data;
+   const response = await axios.post(
+        "https://api.fonnte.com/send",
+        {
+            target: target, // Nomor tujuan
+            message: message, // Pesan yang akan dikirim
+            countryCode: "62", // Opsional
+        },
+        {
+            headers: {
+            Authorization: "-DTs_1pV#oB!-oL2BHJZ", // Ganti TOKEN dengan API Key Anda
+            "Content-Type": "application/json",
+            },
+        }
+    );
+  }
+
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
@@ -38,27 +56,15 @@ app.post("/webhook", async (req, res) => {
     const response = await axios.request(options);
     const reply = response.data.result;
 
-    // Kirim jawaban kembali ke WhatsApp
-    await axios.post(
-        "https://api.fonnte.com/send",
-        {
-            target: sender, // Nomor tujuan
-            message: reply, // Pesan yang akan dikirim
-            countryCode: "62", // Opsional
-        },
-        {
-            headers: {
-            Authorization: "-DTs_1pV#oB!-oL2BHJZ", // Ganti TOKEN dengan API Key Anda
-            "Content-Type": "application/json",
-            },
-        }
-    );
-    
+    const data = {
+        target: sender,
+        message: reply,
+    };
+    sendFonnte(data);
   } catch (error) {
     console.error(error);
   }
-
-  res.status(200).send("OK");
+  res.end();
 });
 
 // Jalankan server
