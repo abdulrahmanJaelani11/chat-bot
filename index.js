@@ -54,7 +54,7 @@ app.post("/webhook", async (req, res) => {
   
   try {
     // Kirim pesan ke OpenAI API
-    const response = await axios.request(options);
+    const response = await axios.request(options);  
     const reply = response.data.result;
 
     const data = {
@@ -65,7 +65,10 @@ app.post("/webhook", async (req, res) => {
   } catch (error) {
     console.error(error);
   }
-    res.end();
+    res.status(200).send({
+        status: "OK",
+        message: "Successfully sent message",
+    });
 });
 
 // Jalankan server
