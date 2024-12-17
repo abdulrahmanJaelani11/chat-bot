@@ -6,21 +6,18 @@ const app = express();
 app.use(bodyParser.json());
 
 async function sendFonnte(data) {
-    const { target, message } = data;
-   const response = await axios.post(
-        "https://api.fonnte.com/send",
-        {
-            target: target, // Nomor tujuan
-            message: message, // Pesan yang akan dikirim
-            countryCode: "62", // Opsional
-        },
-        {
-            headers: {
-            Authorization: "-DTs_1pV#oB!-oL2BHJZ", // Ganti TOKEN dengan API Key Anda
-            "Content-Type": "application/json",
-            },
-        }
-    );
+    const url = "https://api.fonnte.com/send";
+
+    const customHeaders = {
+      "Content-Type": "application/json",
+      Authorization: "-DTs_1pV#oB!-oL2BHJZ" ,
+    };
+  
+    const response = await fetch(url, {
+      method: "POST",
+      headers: customHeaders,
+      body: JSON.stringify(data),
+    });
   }
 
 // Endpoint untuk menerima pesan dari WhatsApp API
