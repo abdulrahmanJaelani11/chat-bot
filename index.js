@@ -21,6 +21,7 @@ async function sendFonnte(data) {
             },
         }
     );
+    console.log(response.data);
   }
 
 // Endpoint untuk menerima pesan dari WhatsApp API
