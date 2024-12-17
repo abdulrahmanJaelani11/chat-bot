@@ -1,0 +1,65 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const axios = require("axios");
+
+const app = express();
+app.use(bodyParser.json());
+
+// Endpoint untuk menerima pesan dari WhatsApp API
+app.post("/webhook", async (req, res) => {
+  const { message, sender } = req.body; // Data dari WhatsApp API
+  
+  const options = {
+      method: 'POST',
+      url: 'https://chatgpt-42.p.rapidapi.com/conversationgpt4',
+      headers: {
+        'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        messages: [
+          {
+            role: 'user',
+            content: message
+          }
+        ],
+        system_prompt: '',
+        temperature: 0.9,
+        top_k: 5,
+        top_p: 0.9,
+        max_tokens: 256,
+        web_access: false
+      }
+  };
+  
+  try {
+    // Kirim pesan ke OpenAI API
+    const response = await axios.request(options);
+    const reply = response.data.result;
+
+    // Kirim jawaban kembali ke WhatsApp
+    await axios.post(
+        "https://api.fonnte.com/send",
+        {
+            target: sender, // Nomor tujuan
+            message: reply, // Pesan yang akan dikirim
+            countryCode: "62", // Opsional
+        },
+        {
+            headers: {
+            Authorization: "-DTs_1pV#oB!-oL2BHJZ", // Ganti TOKEN dengan API Key Anda
+            "Content-Type": "application/json",
+            },
+        }
+    );
+    
+  } catch (error) {
+    console.error(error);
+  }
+
+  res.status(200).send("OK");
+});
+
+// Jalankan server
+app.listen(3000, () => console.log("Server running on port 3000"));
