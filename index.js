@@ -23,6 +23,13 @@ async function sendFonnte(sender, message) {
     console.log(response.data);
   }
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.get("/webhook", (req, res) => {
+  res.send("Hello Fonnte!");
+});
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
