@@ -5,18 +5,17 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
-async function sendFonnte(data) {
-    const { target, message } = data;
+async function sendFonnte(sender, message) {
    const response = await axios.post(
         "https://api.fonnte.com/send",
         {
-            target: target, // Nomor tujuan
+            target: sender, // Nomor tujuan
             message: message, // Pesan yang akan dikirim
             countryCode: "62", // Opsional
         },
         {
             headers: {
-            Authorization: "-DTs_1pV#oB!-oL2BHJZ", // Ganti TOKEN dengan API Key Anda
+            Authorization: "YQnJUtavytyJDvyyVjy1", // Ganti TOKEN dengan API Key Anda
             "Content-Type": "application/json",
             },
         }
@@ -29,46 +28,42 @@ app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
   
   const options = {
-      method: 'POST',
-      url: 'https://chatgpt-42.p.rapidapi.com/conversationgpt4',
-      headers: {
-        'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-        'Content-Type': 'application/json'
-      },
-      data: {
-        messages: [
-          {
-            role: 'user',
-            content: message
-          }
-        ],
-        system_prompt: '',
-        temperature: 0.9,
-        top_k: 5,
-        top_p: 0.9,
-        max_tokens: 256,
-        web_access: false
-      }
+    method: 'POST',
+    url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+    headers: {
+      'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
+      'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+      'Content-Type': 'application/json'
+    },
+    data: {
+      messages: [
+        {
+          role: 'user',
+          content: `${message}, jelaskan dalam bahasa indonesia!`
+        }
+      ],
+      web_access: false
+    }
   };
   
   try {
     // Kirim pesan ke OpenAI API
     const response = await axios.request(options);  
     const reply = response.data.result;
+    // console.log(reply);
 
-    const data = {
-        target: sender,
-        message: reply,
-    };
-    sendFonnte(data);
+    await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
   } catch (error) {
     console.error(error);
-  }
-    res.status(200).send({
-        status: "OK",
-        message: "Successfully sent message",
+    res.status(500).send({
+        status: "ERROR",
+        message: "Gagal membalas pesan",
     });
+  }
+  res.status(200).send({
+    status: "OK",
+    message: "Berhasil membalas pesan",
+});
 });
 
 // Jalankan server
