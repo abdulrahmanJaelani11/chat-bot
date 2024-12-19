@@ -45,27 +45,43 @@ app.use(bodyParser.json());
     }
   }
 
+  async function getFollowersInstagram(username) {
+    const options = {
+      method: 'GET',
+      url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/followers',
+      params: {
+        username_or_id_or_url: username
+      },
+      headers: {
+        'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
+        'x-rapidapi-host': 'instagram-scraper-api2.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      let data = `Total Pengikut ${username}: ${response.data.data.count} Orang\n\n`;
+      data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`).join("\n");
+      return response.data.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
   async function formatDataInstagram(data) {
-    console.log(data);
     const formattedData = `
     Username: ${data.username}
     Nama Lengkap: ${data.full_name}
     Bio: ${data.biography}
-    Negara: ${data.about != null ? data.about.country : ''}
-    Tanggal Gabung: ${data.about != null ? new Date(data.about.date_joined_as_timestamp * 1000) : ''}
-    Badges: ${data.account_badges.join(", ")}
-    Tipe Akun: ${data.account_type}
-    Active Fundraisers: ${data.active_standalone_fundraisers.total_count}
     Link Bio: ${data.bio_links.map(link => link.url).join(", ")}
     Kontak No. HP: ${data.contact_phone_number}
     Total Pengikut: ${data.follower_count}
     Total Mengikuti: ${data.following_count}
-    Is Verified: ${data.is_verified}
+    Is Verified: ${data.is_verified ? "Ya" : "Tidak"}
     Media Count: ${data.media_count}
     Link Foto Profil: ${data.hd_profile_pic_url_info.url}
     Link Foto Profil HD: ${data.profile_pic_url_hd}
-    Nomor HP Public: +${data.public_phone_country_code}${data.public_phone_number}
-    Total IGTV Videos: ${data.total_igtv_videos}
+    Nomor HP Public: +${data.public_phone_country_code != undefined && data.public_phone_number != undefined ? data.public_phone_country_code + data.public_phone_number : ''}
     `;
 
     return formattedData;
@@ -122,6 +138,10 @@ app.post("/webhook", async (req, res) => {
     if(message.includes("ig:")){
       const username = message.split(":")[1];
       const data = await getDataInstagram(username);
+      await sendFonnte(sender, data);
+    }else if(message.includes("ig_follower:")){
+      const username = message.split(":")[1];
+      const data = await getFollowersInstagram(username);
       await sendFonnte(sender, data);
     }else{
       const reply = await checkMessage({sender, message});
