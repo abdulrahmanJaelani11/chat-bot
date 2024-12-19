@@ -58,8 +58,12 @@ app.post("/webhook", async (req, res) => {
     let reply = "";
     console.log(sender);
     if(sender === "6285952403737" || sender === "6283874809704"){
-      const response = await axios.request(options);
-      reply = response.data.result;
+      if(message.includes("knp ga mau respon") || message.includes("kenapa ga mau respon") || message.includes("kenapa ga mau jawab") || message.includes("knp ga mau jawab") || message.includes("kenapa ga mau balas") || message.includes("knp ga mau balas") || message.includes("kenapa ga mau chat") || message.includes("knp ga mau chat") || message.includes("kenapa ga mau ngomong") || message.includes("knp ga mau ngomong") || message.includes("kenapa ga mau ngobrol") || message.includes("knp ga mau ngobrol") || message.includes("kenapa ga mau bicara") || message.includes("knp ga mau bicara") || message.includes("kenapa ga mau berbicara") || message.includes("knp ga mau berbicara")){
+        reply = "Karena dia nyebelin, aku lebih baik berbicara denganmu saja Ivi!";
+      }else{
+        const response = await axios.request(options);
+        reply = response.data.result;
+      }
     }else{
       reply = "Maaf, aku hanya mau berbicara dengan teman baruku saja, namanya Silvi";
     }
