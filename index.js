@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
     messages: [
       {
         role: 'user',
-        content: `Respon aku selaknya manusia berdialog!. ${message}`
+        content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi. Respon aku selaknya manusia berdialog!. ${message}`
       }
     ],
     web_access: false
