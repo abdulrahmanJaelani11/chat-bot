@@ -28,7 +28,7 @@ app.use(bodyParser.json());
       method: 'GET',
       url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/info',
       params: {
-        username_or_id_or_url: 'abdurahman_jaelani'
+        username_or_id_or_url: username
       },
       headers: {
         'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
@@ -38,10 +38,36 @@ app.use(bodyParser.json());
 
     try {
       const response = await axios.request(options);
-      return response.data.data;
+      const formattedData = await formatDataInstagram(response.data.data);
+      return formattedData;
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function formatDataInstagram(data) {
+    const formattedData = `
+    Username: ${data.username}\n
+    Nama Lengkap: ${data.full_name}\n
+    Bio: ${data.biography}\n
+    Negara: ${data.about.country}\n
+    Tanggal Gabung: ${new Date(data.about.date_joined_as_timestamp * 1000)}\n
+    Badges: ${data.account_badges.join(", ")}\n
+    Tipe Akun: ${data.account_type}\n
+    Active Fundraisers: ${data.active_standalone_fundraisers.total_count}\n
+    Link Bio: ${data.bio_links.map(link => link.url).join(", ")}\n
+    Kontak No. HP: ${data.contact_phone_number}\n
+    Total Pengikut: ${data.follower_count}\n
+    Total Mengikuti: ${data.following_count}\n
+    Is Verified: ${data.is_verified}\n
+    Media Count: ${data.media_count}\n
+    Link Foto Profil: ${data.hd_profile_pic_url_info.url}\n
+    Link Foto Profil HD: ${data.profile_pic_url_hd}\n
+    Nomor HP Public: +${data.public_phone_country_code}${data.public_phone_number}\n
+    Total IGTV Videos: ${data.total_igtv_videos}\n
+    `;
+
+    return formattedData;
   }
 
   async function checkMessage(data) {
