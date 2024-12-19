@@ -35,23 +35,23 @@ app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
   
   const options = {
-    method: 'POST',
-    url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
-    headers: {
-      'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-      'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
-      'Content-Type': 'application/json'
-    },
-    data: {
-      messages: [
-        {
-          role: 'user',
-          content: `Aku ${message}, jelaskan dalam bahasa indonesia!`
-        }
-      ],
-      web_access: false
-    }
-  };
+  method: 'POST',
+  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
+  headers: {
+    'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
+    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+    'Content-Type': 'application/json'
+  },
+  data: {
+    messages: [
+      {
+        role: 'user',
+        content: `Respon aku selaknya manusia berdialog!. ${message}`
+      }
+    ],
+    web_access: false
+  }
+};
   
   try {
     // Kirim pesan ke OpenAI API
