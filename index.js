@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `${message}, jelaskan dalam bahasa indonesia!`
+          content: `Aku ${message}, jelaskan dalam bahasa indonesia!`
         }
       ],
       web_access: false
@@ -61,7 +61,7 @@ app.post("/webhook", async (req, res) => {
 
     await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
   } catch (error) {
-    console.error(error);
+    await sendFonnte(sender, "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!"); // Kirim pesan kesalahan
     res.status(500).send({
         status: "ERROR",
         message: "Gagal membalas pesan",
