@@ -64,9 +64,10 @@ app.use(bodyParser.json());
       let data = response.data;
       let msg = `Total Pengikut ${username}: ${data.count} Orang\n\n`;
       // data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`);
-      return msg;
+      return "Maaf, Fitur ini sedang dalam pengembangan!";
     } catch (error) {
       console.error(error);
+      return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";
     }
   }
   
