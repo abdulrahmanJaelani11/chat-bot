@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi dan Abdurahman bos mu. Respon aku selaknya manusia berdialog!. ${message}`
+          content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi dan Abdurahman bos kamu. Respon aku selaknya manusia berdialog!. ${message}`
         }
       ],
       web_access: false
@@ -57,7 +57,7 @@ app.post("/webhook", async (req, res) => {
     // Kirim pesan ke OpenAI API
     let reply = "";
     console.log(sender);
-    if(sender === "6285952403737" || sender === "623874809704"){
+    if(sender === "6285952403737" || sender === "6283874809704"){
       const response = await axios.request(options);
       reply = response.data.result;
     }else{
