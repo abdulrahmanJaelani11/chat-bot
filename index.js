@@ -35,29 +35,29 @@ app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
   
   const options = {
-  method: 'POST',
-  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
-  headers: {
-    'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
-    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-    'Content-Type': 'application/json'
-  },
-  data: {
-    messages: [
-      {
-        role: 'user',
-        content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi. Respon aku selaknya manusia berdialog!. ${message}`
-      }
-    ],
-    web_access: false
-  }
-};
+    method: 'POST',
+    url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
+    headers: {
+      'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
+      'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+      'Content-Type': 'application/json'
+    },
+    data: {
+      messages: [
+        {
+          role: 'user',
+          content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi dan Abdurahman bos mu. Respon aku selaknya manusia berdialog!. ${message}`
+        }
+      ],
+      web_access: false
+    }
+  };
   
   try {
     // Kirim pesan ke OpenAI API
     let reply = "";
-    if(sender === "6281234567890") {
-      const response = await axios.request(options);  
+    if(sender == "085952403737" || sender == "083874809704"){
+      const response = await axios.request(options);
       reply = response.data.result;
     }else{
       reply = "Maaf, aku hanya mau berbicara dengan teman baruku Silvi, nama panggilannya Ivi, Maaf ya!";
