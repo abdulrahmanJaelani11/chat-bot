@@ -56,9 +56,13 @@ app.post("/webhook", async (req, res) => {
   try {
     // Kirim pesan ke OpenAI API
     let reply = "";
-    const response = await axios.request(options);
-    reply = response.data.result;
-    // reply = "Maaf, aku hanya mau berbicara dengan teman baruku Silvi, nama panggilannya Ivi, Maaf ya!";
+    console.log(sender);
+    if(sender == "085952403737" || sender == "083874809704" || sender == "6285952403737" || sender == "623874809704" || sender == "+6285952403737" || sender == "+6283874809704"){
+      const response = await axios.request(options);
+      reply = response.data.result;
+    }else{
+      reply = "Maaf, aku hanya mau berbicara dengan teman baruku Silvi, nama panggilannya Ivi, Maaf ya!";
+    }
     // console.log(reply);
 
     await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
