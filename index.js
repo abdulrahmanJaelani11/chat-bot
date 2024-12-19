@@ -57,7 +57,7 @@ app.post("/webhook", async (req, res) => {
     // Kirim pesan ke OpenAI API
     let reply = "";
     console.log(sender);
-    if(sender == "085952403737" || sender == "083874809704" || sender == "6285952403737" || sender == "623874809704" || sender == "+6285952403737" || sender == "+6283874809704"){
+    if(sender === "6285952403737" || sender === "623874809704"){
       const response = await axios.request(options);
       reply = response.data.result;
     }else{
