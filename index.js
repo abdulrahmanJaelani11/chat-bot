@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi dan Abdurahman bos kamu. Respon aku selaknya manusia berdialog!. ${message}`
+          content: `Dalam konteks ini nama kamu Bobi, nama aku Ivi dan Abdurahman bos kamu. Respon aku selaknya manusia berdialog!. "${message}"`
         }
       ],
       web_access: false
@@ -61,7 +61,7 @@ app.post("/webhook", async (req, res) => {
       const response = await axios.request(options);
       reply = response.data.result;
     }else{
-      reply = "Maaf, aku hanya mau berbicara dengan teman baruku Silvi, nama panggilannya Ivi, Maaf ya!";
+      reply = "Maaf, aku hanya mau berbicara dengan teman baruku saja, namanya Silvi";
     }
     // console.log(reply);
 
