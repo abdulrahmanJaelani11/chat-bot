@@ -60,7 +60,7 @@ app.post("/webhook", async (req, res) => {
       const response = await axios.request(options);  
       reply = response.data.result;
     }else{
-      reply = "Maaf, aku hanya bisa berbicara dengan teman baruku Silvi, nama panggilannya Ivi";
+      reply = "Maaf, aku hanya mau berbicara dengan teman baruku Silvi, nama panggilannya Ivi, Maaf ya!";
     }
     // console.log(reply);
 
