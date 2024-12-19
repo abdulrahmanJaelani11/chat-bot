@@ -46,12 +46,13 @@ app.use(bodyParser.json());
   }
 
   async function formatDataInstagram(data) {
+    console.log(data);
     const formattedData = `
     Username: ${data.username}\n
     Nama Lengkap: ${data.full_name}\n
     Bio: ${data.biography}\n
-    Negara: ${data.about.country}\n
-    Tanggal Gabung: ${new Date(data.about.date_joined_as_timestamp * 1000)}\n
+    Negara: ${data.about != null ? data.about.country : ''}\n
+    Tanggal Gabung: ${data.about != null ? new Date(data.about.date_joined_as_timestamp * 1000) : ''}\n
     Badges: ${data.account_badges.join(", ")}\n
     Tipe Akun: ${data.account_type}\n
     Active Fundraisers: ${data.active_standalone_fundraisers.total_count}\n
