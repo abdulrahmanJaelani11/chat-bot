@@ -48,24 +48,24 @@ app.use(bodyParser.json());
   async function formatDataInstagram(data) {
     console.log(data);
     const formattedData = `
-    Username: ${data.username}\n
-    Nama Lengkap: ${data.full_name}\n
-    Bio: ${data.biography}\n
-    Negara: ${data.about != null ? data.about.country : ''}\n
-    Tanggal Gabung: ${data.about != null ? new Date(data.about.date_joined_as_timestamp * 1000) : ''}\n
-    Badges: ${data.account_badges.join(", ")}\n
-    Tipe Akun: ${data.account_type}\n
-    Active Fundraisers: ${data.active_standalone_fundraisers.total_count}\n
-    Link Bio: ${data.bio_links.map(link => link.url).join(", ")}\n
-    Kontak No. HP: ${data.contact_phone_number}\n
-    Total Pengikut: ${data.follower_count}\n
-    Total Mengikuti: ${data.following_count}\n
-    Is Verified: ${data.is_verified}\n
-    Media Count: ${data.media_count}\n
-    Link Foto Profil: ${data.hd_profile_pic_url_info.url}\n
-    Link Foto Profil HD: ${data.profile_pic_url_hd}\n
-    Nomor HP Public: +${data.public_phone_country_code}${data.public_phone_number}\n
-    Total IGTV Videos: ${data.total_igtv_videos}\n
+    Username: ${data.username}
+    Nama Lengkap: ${data.full_name}
+    Bio: ${data.biography}
+    Negara: ${data.about != null ? data.about.country : ''}
+    Tanggal Gabung: ${data.about != null ? new Date(data.about.date_joined_as_timestamp * 1000) : ''}
+    Badges: ${data.account_badges.join(", ")}
+    Tipe Akun: ${data.account_type}
+    Active Fundraisers: ${data.active_standalone_fundraisers.total_count}
+    Link Bio: ${data.bio_links.map(link => link.url).join(", ")}
+    Kontak No. HP: ${data.contact_phone_number}
+    Total Pengikut: ${data.follower_count}
+    Total Mengikuti: ${data.following_count}
+    Is Verified: ${data.is_verified}
+    Media Count: ${data.media_count}
+    Link Foto Profil: ${data.hd_profile_pic_url_info.url}
+    Link Foto Profil HD: ${data.profile_pic_url_hd}
+    Nomor HP Public: +${data.public_phone_country_code}${data.public_phone_number}
+    Total IGTV Videos: ${data.total_igtv_videos}
     `;
 
     return formattedData;
