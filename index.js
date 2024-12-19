@@ -60,10 +60,11 @@ app.use(bodyParser.json());
 
     try {
       const response = await axios.request(options);
-      console.log(response.data.data);
-      let data = `Total Pengikut ${username}: ${response.data.data.count} Orang\n\n`;
-      data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`);
-      return data;
+      console.log(response.data);
+      let data = response.data;
+      let msg = `Total Pengikut ${username}: ${data.count} Orang\n\n`;
+      // data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`);
+      return msg;
     } catch (error) {
       console.error(error);
     }
