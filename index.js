@@ -46,17 +46,19 @@ app.use(bodyParser.json());
   }
 
   async function getFollowersInstagram(username) {
+    console.log(username);
     const options = {
       method: 'GET',
       url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/followers',
       params: {
-        username_or_id_or_url: username
+        username_or_id_or_url: `${username}`,
       },
       headers: {
         'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
         'x-rapidapi-host': 'instagram-scraper-api2.p.rapidapi.com'
       }
     };
+    
 
     try {
       const response = await axios.request(options);
