@@ -52,6 +52,25 @@ app.post("/webhook", async (req, res) => {
       web_access: false
     }
   };
+
+  // const options = {
+  //   method: 'POST',
+  //   url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+  //   headers: {
+  //     'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
+  //     'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   data: {
+  //     messages: [
+  //       {
+  //         role: 'user',
+  //         content: 'hi'
+  //       }
+  //     ],
+  //     web_access: false
+  //   }
+  // };
   
   try {
     // Kirim pesan ke OpenAI API
