@@ -141,7 +141,7 @@ app.use(bodyParser.json());
     
     
     let reply = "";
-    if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
+    if(sender === "6285952403737" || sender === "6283874809704"){ //  || sender === "62895801174434"
       if(message.toLowerCase() == "bobi"){
         reply = "Hai Ivi, gimana kabar kamu hari ini?, semoga baik baik saja ya!. Oh iya Ivi kemarin malam ada seseorang dengan no wa yang tidak aku kenal chat aku, dia bilang dia adalah pacarmu, apakah itu benar?";
       }else{
