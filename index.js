@@ -120,6 +120,13 @@ app.use(bodyParser.json());
 
   async function checkMessage(data) {
     const {sender, message} = data;
+    let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
+
+    if(message.includes("perintah:")){
+      message = message.split(":")[1];
+      content = `${message}`;
+    }
+    
     const options = {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
@@ -132,7 +139,7 @@ app.use(bodyParser.json());
         messages: [
           {
             role: 'user',
-            content: `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`
+            content: content
           }
         ],
         web_access: false
