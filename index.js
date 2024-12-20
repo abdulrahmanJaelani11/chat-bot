@@ -124,7 +124,7 @@ app.use(bodyParser.json());
 
     if(message.includes("perintah:")){
       message = message.split(":")[1];
-      content = `${message}`;
+      content = `Dalam konteks ini nama aku Ivi. "${message}" Hanya berikan kata katanya!`;
     }
     
     const options = {
@@ -182,8 +182,7 @@ app.post("/webhook", async (req, res) => {
       const data = await getStroryInstagram(username);
       await sendFonnte(sender, data);
     }else if(message.includes("perintah:")){
-      const perintah = message.split(":")[1];
-      const reply = await checkMessage({sender, perintah});
+      const reply = await checkMessage({sender, message});
       await sendFonnte('085952403737', reply);
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else{
