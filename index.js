@@ -63,10 +63,10 @@ app.use(bodyParser.json());
     try {
       const response = await axios.request(options);
       console.log(response.data);
-      let data = response.data;
+      let data = response.data.data;
       let msg = `Total Pengikut ${username}: ${data.count} Orang\n\n`;
-      // data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`);
-      return "Maaf, Fitur ini sedang dalam pengembangan!";
+      data += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}`);
+      return msg;
     } catch (error) {
       console.error(error);
       return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";
