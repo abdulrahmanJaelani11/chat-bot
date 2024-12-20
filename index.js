@@ -20,7 +20,6 @@ app.use(bodyParser.json());
             },
         }
     );
-    console.log(response.data);
   }
 
   async function getDataInstagram(username) {
@@ -159,6 +158,7 @@ app.use(bodyParser.json());
 
   async function kirimPerintah(data) {
     const {sender, message} = data;
+    console.log(message)
     const options = {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
@@ -194,7 +194,6 @@ app.get("/webhook", (req, res) => {
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
-  console.log(sender)
   try {
     if(message.includes("ig:")){
       const username = message.split(":")[1];
