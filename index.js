@@ -70,6 +70,31 @@ app.use(bodyParser.json());
       return msg;
     } catch (error) {
       console.error(error);
+      return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";  
+    }
+  }
+
+  async function getStroryInstagram(username) {
+    const options = {
+      method: 'GET',
+      url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/stories',
+      params: {
+        username_or_id_or_url: username
+      },
+      headers: {
+        'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
+        'x-rapidapi-host': 'instagram-scraper-api2.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      let data = response.data.data;
+      let msg = `Total Stories ${username}: ${data.count} Stories\n\n`;
+      msg += response.data.data.items.map((story, index) => `${story.video_url}\n`);
+      return msg;
+    }catch (error) {
+      console.error(error);
       return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";
     }
   }
@@ -148,6 +173,10 @@ app.post("/webhook", async (req, res) => {
     }else if(message.includes("ig_follower:")){
       const username = message.split(":")[1];
       const data = await getFollowersInstagram(username);
+      await sendFonnte(sender, data);
+    }else if(message.includes("ig_stories:")){
+      const username = message.split(":")[1];
+      const data = await getStroryInstagram(username);
       await sendFonnte(sender, data);
     }else{
       const reply = await checkMessage({sender, message});
