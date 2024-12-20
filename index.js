@@ -157,6 +157,33 @@ app.use(bodyParser.json());
     return reply;
   }
 
+  async function kirimPerintah(data) {
+    const {sender, message} = data;
+    const options = {
+      method: 'POST',
+      url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
+      headers: {
+        'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        messages: [
+          {
+            role: 'user',
+            content: `Dalam konteks ini nama aku Ivi. "${message}", Hanya berikan kata katanya!`
+          }
+        ],
+        web_access: false
+      }
+    };
+    
+    const response = await axios.request(options);
+    let reply = response.data.result;
+
+    return reply;
+  }
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -182,8 +209,8 @@ app.post("/webhook", async (req, res) => {
       const data = await getStroryInstagram(username);
       await sendFonnte(sender, data);
     }else if(message.includes("perintah:")){
-      const perintah = message;
-      const reply = await checkMessage({sender, perintah});
+      const perintah = message.split(":")[1];
+      const reply = await kirimPerintah({sender, perintah});
       await sendFonnte('085952403737', reply);
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else{
