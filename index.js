@@ -142,12 +142,8 @@ app.use(bodyParser.json());
     
     let reply = "";
     if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
-      if(message.toLowerCase() == "bobi"){
-        reply = "Hai Ivi, gimana kabar kamu hari ini?, semoga baik baik saja ya!. Oh iya Ivi kemarin malam ada seseorang dengan no wa yang tidak aku kenal chat aku, dia bilang dia adalah pacarmu, apakah itu benar?";
-      }else{
-        const response = await axios.request(options);
-        reply = response.data.result;
-      }
+      const response = await axios.request(options);
+      reply = response.data.result;
     }else{
       reply = "Maaf, aku hanya mau berbicara dengan temanku saja, kalau mau chat aku, minta izin Abdurahman dulu ya!";
     }
