@@ -160,6 +160,7 @@ app.get("/webhook", (req, res) => {
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
+  console.log(sender)
   try {
     if(message.includes("ig:")){
       const username = message.split(":")[1];
@@ -176,8 +177,8 @@ app.post("/webhook", async (req, res) => {
     }else if(message.includes("perintah:")){
       const perintah = message.split(":")[1];
       const reply = await checkMessage({sender, perintah});
-      // await sendFonnte('085952403737', reply);
-      await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
+      await sendFonnte('085952403737', reply);
+      // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else{
       const reply = await checkMessage({sender, message});
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
