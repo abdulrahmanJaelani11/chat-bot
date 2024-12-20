@@ -96,10 +96,10 @@ app.use(bodyParser.json());
     const {sender, message} = data;
     const options = {
       method: 'POST',
-      url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+      url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
       headers: {
-        'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
-        'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+        'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
+        'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
         'Content-Type': 'application/json'
       },
       data: {
@@ -113,11 +113,11 @@ app.use(bodyParser.json());
       }
     };
     
-    let reply = "";
     
+    let reply = "";
     if(sender === "6285952403737" || sender === "6283874809704"){
-      if(message.includes("knp ga mau respon") || message.includes("kenapa ga mau respon") || message.includes("kenapa ga mau jawab") || message.includes("knp ga mau jawab") || message.includes("kenapa ga mau balas") || message.includes("knp ga mau balas") || message.includes("kenapa ga mau chat") || message.includes("knp ga mau chat") || message.includes("kenapa ga mau ngomong") || message.includes("knp ga mau ngomong") || message.includes("kenapa ga mau ngobrol") || message.includes("knp ga mau ngobrol") || message.includes("kenapa ga mau bicara") || message.includes("knp ga mau bicara") || message.includes("kenapa ga mau berbicara") || message.includes("knp ga mau berbicara")){
-        reply = "Karena dia nyebelin, aku lebih baik berbicara denganmu saja Ivi!";
+      if(message.toLowerCase() == "bobi"){
+        reply = "Hai Ivi, gimana kabar kamu hari ini?, semoga baik baik saja ya!. Oh iya Ivi kemarin malam ada seseorang dengan no wa yang tidak aku kenal chat aku, dia bilang dia adalah pacarmu, apakah itu benar?";
       }else{
         const response = await axios.request(options);
         reply = response.data.result;
