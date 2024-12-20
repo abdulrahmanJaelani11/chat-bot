@@ -139,7 +139,6 @@ app.use(bodyParser.json());
       }
     };
     
-    
     let reply = "";
     if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
       const response = await axios.request(options);
@@ -174,6 +173,10 @@ app.post("/webhook", async (req, res) => {
       const username = message.split(":")[1];
       const data = await getStroryInstagram(username);
       await sendFonnte(sender, data);
+    }else if(message.includes("perintah:")){
+      const message = message.split(":")[1];
+      const reply = await checkMessage({sender, message});
+      sendFonnte('6285952403737', reply);
     }else{
       const reply = await checkMessage({sender, message});
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
