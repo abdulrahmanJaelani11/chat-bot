@@ -182,7 +182,8 @@ app.post("/webhook", async (req, res) => {
       const data = await getStroryInstagram(username);
       await sendFonnte(sender, data);
     }else if(message.includes("perintah:")){
-      const reply = await checkMessage({sender, message});
+      const perintah = message;
+      const reply = await checkMessage({sender, perintah});
       await sendFonnte('085952403737', reply);
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else{
