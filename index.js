@@ -52,6 +52,7 @@ app.use(bodyParser.json());
       url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/followers',
       params: {
         username_or_id_or_url: `${username}`,
+        amount: '500'
       },
       headers: {
         'x-rapidapi-key': 'c3a2e5848cmshcac1835d7465444p179415jsn8ca3f96bdb4a',
