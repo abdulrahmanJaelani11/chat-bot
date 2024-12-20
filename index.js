@@ -66,7 +66,7 @@ app.use(bodyParser.json());
       console.log(response.data);
       let data = response.data.data;
       let msg = `Total Pengikut ${username}: ${data.count} Orang\n\n`;
-      msg += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} - ${follower.id}\n`);
+      msg += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} \n`);
       return msg;
     } catch (error) {
       console.error(error);
