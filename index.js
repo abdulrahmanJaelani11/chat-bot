@@ -157,8 +157,8 @@ app.use(bodyParser.json());
   }
 
   async function kirimPerintah(data) {
-    const {sender, message} = data;
-    console.log(message)
+    const {sender, perintah} = data;
+    console.log(perintah)
     const options = {
       method: 'POST',
       url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
@@ -171,7 +171,7 @@ app.use(bodyParser.json());
         messages: [
           {
             role: 'user',
-            content: `Dalam konteks ini nama aku Ivi. "${message}", Hanya berikan kata katanya!`
+            content: `Dalam konteks ini nama aku Ivi. "${perintah}", Hanya berikan kata katanya!`
           }
         ],
         web_access: false
