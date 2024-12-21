@@ -211,7 +211,7 @@ app.post("/webhook", async (req, res) => {
       const perintah = message.split(":")[1];
       console.log(perintah);
       const reply = await kirimPerintah({sender, perintah});
-      await sendFonnte(sender, reply); //'085952403737'
+      await sendFonnte('085952403737', reply); //'085952403737'
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else{
       const reply = await checkMessage({sender, message});
