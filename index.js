@@ -1,6 +1,25 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+// abdulrahmanjaelani11@gmail.com - ChatGPT Vision
+let options = {
+  method: 'POST',
+  url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+  headers: {
+    'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
+    'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+    'Content-Type': 'application/json'
+  },
+  data: {
+    messages: [
+      {
+        role: 'user',
+        content: ''
+      }
+    ],
+    web_access: false
+  }
+};
 let pesan_global = {
   "Ivi": "",
   "Bobi": ""
@@ -67,7 +86,6 @@ async function getFollowersInstagram(username) {
 
   try {
     const response = await axios.request(options);
-    console.log(response.data);
     let data = response.data.data;
     let msg = `Total Pengikut ${username}: ${data.count} Orang\n\n`;
     msg += response.data.data.items.map((follower, index) => `${index + 1}. ${follower.username} - ${follower.full_name} \n`);
@@ -125,30 +143,12 @@ async function formatDataInstagram(data) {
 async function checkMessage(data) {
   const {sender, message} = data;
   let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
+  options.data.messages[0].content = content;
 
   if(message.includes("perintah:")){
     message = message.split(":")[1];
     content = `Dalam konteks ini nama aku Ivi. "${message}" Hanya berikan kata katanya!`;
   }
-  
-  const options = {
-    method: 'POST',
-    url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
-    headers: {
-      'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
-      'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-      'Content-Type': 'application/json'
-    },
-    data: {
-      messages: [
-        {
-          role: 'user',
-          content: content
-        }
-      ],
-      web_access: false
-    }
-  };
   
   let reply = "";
   if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
@@ -163,25 +163,8 @@ async function checkMessage(data) {
 
 async function kirimPerintah(data) {
   const {sender, perintah} = data;
-  console.log(perintah)
-  const options = {
-    method: 'POST',
-    url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
-    headers: {
-      'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
-      'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-      'Content-Type': 'application/json'
-    },
-    data: {
-      messages: [
-        {
-          role: 'user',
-          content: `Dalam konteks ini nama aku Ivi. "${perintah}", Hanya berikan kata katanya!`
-        }
-      ],
-      web_access: false
-    }
-  };
+  const content = `Dalam konteks ini nama aku Ivi. "${perintah}", Hanya berikan kata katanya!`;
+  options.data.messages[0].content = content;
   
   const response = await axios.request(options);
   let reply = response.data.result;
@@ -214,7 +197,6 @@ app.post("/webhook", async (req, res) => {
       await sendFonnte(sender, data);
     }else if(message.includes("perintah:")){
       const perintah = message.split(":")[1];
-      console.log(perintah);
       const reply = await kirimPerintah({sender, perintah});
       await sendFonnte('085952403737', reply); //'085952403737'
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
