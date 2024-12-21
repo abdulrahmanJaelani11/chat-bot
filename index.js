@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+let pesan_global = "";
 
 const app = express();
 app.use(bodyParser.json());
@@ -185,6 +186,7 @@ app.use(bodyParser.json());
   }
 
 app.get("/", (req, res) => {
+  pesan_global += "Hello World!";
   res.send("Hello World!");
 });
 
