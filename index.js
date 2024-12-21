@@ -186,6 +186,7 @@ app.use(bodyParser.json());
   }
 
 app.get("/", (req, res) => {
+  console.log(pesan_global);
   pesan_global += "Hello World!";
   res.send("Hello World!");
 });
