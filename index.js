@@ -24,6 +24,56 @@ let pesan_global = {
   "Ivi": "",
   "Bobi": ""
 };
+const random_reject_msg = [
+  "Maaf, saya tidak bisa membantu dengan itu.",
+  "Mohon maaf, saya tidak memiliki informasi yang Anda cari.",
+  "Maaf, saya tidak dapat menjawab pertanyaan itu.",
+  "Maaf, saya tidak mengerti apa yang Anda maksud.",
+  "Maaf, saya tidak memiliki wawasan tentang topik tersebut.",
+  "Mohon maaf, saya tidak bisa memberikan jawaban yang Anda inginkan.",
+  "Maaf, saya tidak memiliki pengetahuan tentang hal itu.",
+  "Maaf, saya tidak bisa memberikan saran dalam hal itu.",
+  "Mohon maaf, saya tidak bisa membantu dengan pertanyaan tersebut.",
+  "Maaf, saya tidak memiliki informasi yang relevan.",
+  "Maaf, saya tidak bisa memberikan tanggapan yang tepat.",
+  "Mohon maaf, saya tidak bisa memberikan solusi untuk masalah tersebut.",
+  "Maaf, saya tidak bisa memberikan jawaban yang memuaskan.",
+  "Maaf, saya tidak bisa memberikan informasi yang Anda butuhkan.",
+  "Mohon maaf, saya tidak bisa memberikan saran yang berguna dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan panduan yang Anda cari.",
+  "Maaf, saya tidak bisa memberikan penjelasan yang memadai.",
+  "Mohon maaf, saya tidak bisa memberikan bantuan dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan informasi yang relevan dengan pertanyaan Anda.",
+  "Maaf, saya tidak bisa memberikan solusi yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan jawaban yang memuaskan.",
+  "Maaf, saya tidak bisa memberikan saran yang berguna dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan panduan yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan penjelasan yang memadai.",
+  "Maaf, saya tidak bisa memberikan bantuan dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan informasi yang relevan dengan pertanyaan Anda.",
+  "Maaf, saya tidak bisa memberikan solusi yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan jawaban yang memuaskan.",
+  "Maaf, saya tidak bisa memberikan saran yang berguna dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan panduan yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan penjelasan yang memadai.",
+  "Maaf, saya tidak bisa memberikan bantuan dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan informasi yang relevan dengan pertanyaan Anda.",
+  "Maaf, saya tidak bisa memberikan solusi yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan jawaban yang memuaskan.",
+  "Maaf, saya tidak bisa memberikan saran yang berguna dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan panduan yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan penjelasan yang memadai.",
+  "Maaf, saya tidak bisa memberikan bantuan dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan informasi yang relevan dengan pertanyaan Anda.",
+  "Maaf, saya tidak bisa memberikan solusi yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan jawaban yang memuaskan.",
+  "Maaf, saya tidak bisa memberikan saran yang berguna dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan panduan yang Anda cari.",
+  "Mohon maaf, saya tidak bisa memberikan penjelasan yang memadai.",
+  "Maaf, saya tidak bisa memberikan bantuan dalam hal itu.",
+  "Maaf, saya tidak bisa memberikan informasi yang relevan dengan pertanyaan Anda.",
+  "Maaf, saya tidak bisa memberikan solusi yang Anda cari."
+];
 
 const app = express();
 app.use(bodyParser.json());
@@ -155,7 +205,7 @@ async function checkMessage(data) {
     const response = await axios.request(options);
     reply = response.data.result;
   }else{
-    reply = "Maaf, aku hanya mau berbicara dengan temanku saja, kalau mau chat aku, minta izin Abdurahman dulu ya!";
+    reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
   }
 
   return reply;
