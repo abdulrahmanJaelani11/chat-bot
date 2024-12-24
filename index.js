@@ -260,7 +260,7 @@ app.post("/webhook", async (req, res) => {
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
     }
   } catch (error) {
-    await sendFonnte(sender, "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!"); // Kirim pesan kesalahan
+    await sendFonnte(sender, random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)]); // Kirim pesan kesalahan
     res.status(500).send({
         status: "ERROR",
         message: "Gagal membalas pesan",
