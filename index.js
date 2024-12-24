@@ -142,7 +142,7 @@ async function getFollowersInstagram(username) {
     return msg;
   } catch (error) {
     console.error(error);
-    return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";  
+    return random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];  
   }
 }
 
@@ -167,7 +167,7 @@ async function getStroryInstagram(username) {
     return msg;
   }catch (error) {
     console.error(error);
-    return "Maaf, Sepertinya Server nya ada masalah, silahkan coba lagi!";
+    return random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
   }
 }
 
