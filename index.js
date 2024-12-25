@@ -1,24 +1,25 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
-// abdulrahmanjaelani11@gmail.com - ChatGPT Vision
-let options = {
+// raisanabilazahrani05@gmail.com - ChatGPT API
+const options = {
   method: 'POST',
-  url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+  url: 'https://chatgpt-api8.p.rapidapi.com/',
   headers: {
-    'x-rapidapi-key': 'e7cf862121mshd1fc3bdc41e9099p1be713jsn5363ff6ff8b8',
-    'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+    'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
+    'x-rapidapi-host': 'chatgpt-api8.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
-  data: {
-    messages: [
-      {
-        role: 'user',
-        content: ''
-      }
-    ],
-    web_access: false
-  }
+  data: [
+    {
+      content: `Hello! I'm an AI assistant bot based on ChatGPT 3. How may I help you?`,
+      role: 'system'
+    },
+    {
+      content: '',
+      role: 'user'
+    }
+  ]
 };
 let pesan_global = {
   "Ivi": "",
