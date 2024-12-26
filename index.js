@@ -1,25 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
-// raisanabilazahrani05@gmail.com - ChatGPT API
+// lacakerid@gmail.com - ChatGPT 4
 const options = {
   method: 'POST',
-  url: 'https://chatgpt-api8.p.rapidapi.com/',
+  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
   headers: {
-    'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-    'x-rapidapi-host': 'chatgpt-api8.p.rapidapi.com',
+    'x-rapidapi-key': '036ae29e1cmshcace98d507d244dp1aa60bjsn93721b1c06c6',
+    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
-  data: [
-    {
-      content: `Hello! I'm an AI assistant bot based on ChatGPT 3. How may I help you?`,
-      role: 'system'
-    },
-    {
-      content: '',
-      role: 'user'
-    }
-  ]
+  data: {
+    messages: [
+      {
+        role: 'user',
+        content: ''
+      }
+    ],
+    web_access: false
+  }
 };
 let pesan_global = {
   "Ivi": "",
@@ -208,7 +207,6 @@ async function checkMessage(data) {
   }else{
     reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
   }
-
   return reply;
 }
 
