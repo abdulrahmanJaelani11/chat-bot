@@ -193,7 +193,7 @@ async function formatDataInstagram(data) {
 async function checkMessage(data) {
   const {sender, message} = data;
   let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
-  options.data[0].content = content;
+  options.data.messages[0].content = content;
 
   if(message.includes("perintah:")){
     message = message.split(":")[1];
@@ -213,7 +213,7 @@ async function checkMessage(data) {
 async function kirimPerintah(data) {
   const {sender, perintah} = data;
   const content = `Dalam konteks ini nama aku Ivi. "${perintah}", Hanya berikan kata katanya!`;
-  options.data[0].content = content;
+  options.data.messages[0].content = content;
   
   const response = await axios.request(options);
   let reply = response.data.result;
