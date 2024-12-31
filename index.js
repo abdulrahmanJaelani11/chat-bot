@@ -204,6 +204,8 @@ async function checkMessage(data) {
   if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
     const response = await axios.request(options);
     reply = response.data.result;
+  }else if(sender === "6283852913242"){
+    reply = "Maaf Fia, Ivi tidak mengijinkanku merespon kamu.";
   }else{
     reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
   }
