@@ -4,7 +4,7 @@ const axios = require("axios");
 // lacakerid@gmail.com - OPEN AI
 const options = {
   method: 'POST',
-  url: 'https://open-ai21.p.rapidapi.com/conversationgpt35',
+  url: 'https://open-ai21.p.rapidapi.com/chatgpt',
   headers: {
     'x-rapidapi-key': '036ae29e1cmshcace98d507d244dp1aa60bjsn93721b1c06c6',
     'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
@@ -14,15 +14,10 @@ const options = {
     messages: [
       {
         role: 'user',
-        content: 'hello'
+        content: ''
       }
     ],
-    web_access: false,
-    system_prompt: '',
-    temperature: 0.9,
-    top_k: 5,
-    top_p: 0.9,
-    max_tokens: 256
+    web_access: false
   }
 };
 let pesan_global = {
