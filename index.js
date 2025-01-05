@@ -192,12 +192,12 @@ async function formatDataInstagram(data) {
 
 async function checkMessage(data) {
   const {sender, message} = data;
-  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
+  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog dalam bahasa indonesia!. "${message}"`;
   options.data.messages[0].content = content;
 
   if(message.includes("perintah:")){
     message = message.split(":")[1];
-    content = `Dalam konteks ini nama aku Ivi. "${message}" Hanya berikan kata katanya!`;
+    content = `Dalam konteks ini nama aku Ivi. "${message}" Hanya berikan kata katanya dalam bahasa indonesia!`;
   }
   
   let reply = "";
