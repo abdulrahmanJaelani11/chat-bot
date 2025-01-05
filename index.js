@@ -1,23 +1,28 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
-// lacakerid@gmail.com - ChatGPT VISION
+// lacakerid@gmail.com - OPEN AI
 const options = {
   method: 'POST',
-  url: 'https://chatgpt-vision1.p.rapidapi.com/gpt4',
+  url: 'https://open-ai21.p.rapidapi.com/conversationgpt35',
   headers: {
     'x-rapidapi-key': '036ae29e1cmshcace98d507d244dp1aa60bjsn93721b1c06c6',
-    'x-rapidapi-host': 'chatgpt-vision1.p.rapidapi.com',
+    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
   data: {
     messages: [
       {
         role: 'user',
-        content: 'hi'
+        content: 'hello'
       }
     ],
-    web_access: false
+    web_access: false,
+    system_prompt: '',
+    temperature: 0.9,
+    top_k: 5,
+    top_p: 0.9,
+    max_tokens: 256
   }
 };
 let pesan_global = {
@@ -270,7 +275,7 @@ app.post("/webhook", async (req, res) => {
   res.status(200).send({
     status: "OK",
     message: "Berhasil membalas pesan",
-});
+  });
 });
 
 // Jalankan server
