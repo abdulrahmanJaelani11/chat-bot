@@ -203,6 +203,10 @@ async function checkMessage(data) {
     reply = "Maaf Fia, Ivi tidak mengijinkanku merespon kamu.";
   }else{
     reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
+
+    // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
+    let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
+    feedback(feedback_msg);
   }
   return reply;
 }
@@ -216,6 +220,10 @@ async function kirimPerintah(data) {
   let reply = response.data.result;
 
   return reply;
+}
+
+async function feedback(feedback_msg) {
+  sendFonnte('6283874809704', feedback_msg);
 }
 
 app.get("/", (req, res) => {
@@ -256,6 +264,8 @@ app.post("/webhook", async (req, res) => {
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
     }
   } catch (error) {
+    let feedback_msg = `Bos, Ada kesalahan dalam membalas pesan. "${message}", pesan tersebut berasal dari nomor ${sender}, munkin tokenku sudah habis. Cek segera!`;
+    feedback(feedback_msg);
     await sendFonnte(sender, random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)]); // Kirim pesan kesalahan
     res.status(500).send({
         status: "ERROR",
