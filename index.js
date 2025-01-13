@@ -1,20 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
-// lacakerid@gmail.com - OPEN AI
+// randikaangga9044@gmail.com - CHATGPT 4
 const options = {
   method: 'POST',
-  url: 'https://open-ai21.p.rapidapi.com/chatgpt',
+  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
   headers: {
-    'x-rapidapi-key': '036ae29e1cmshcace98d507d244dp1aa60bjsn93721b1c06c6',
-    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
+    'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
+    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
   data: {
     messages: [
       {
         role: 'user',
-        content: ''
+        content: 'hi'
       }
     ],
     web_access: false
@@ -192,13 +192,8 @@ async function formatDataInstagram(data) {
 
 async function checkMessage(data) {
   const {sender, message} = data;
-  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog dalam bahasa indonesia!. "${message}"`;
+  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
   options.data.messages[0].content = content;
-
-  if(message.includes("perintah:")){
-    message = message.split(":")[1];
-    content = `Dalam konteks ini nama aku Ivi. "${message}" Hanya berikan kata katanya dalam bahasa indonesia!`;
-  }
   
   let reply = "";
   if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
