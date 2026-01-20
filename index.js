@@ -265,9 +265,9 @@ app.post("/webhook", async (req, res) => {
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
     }
   } catch (error) {
-    let feedback_msg = `Bos, Ada kesalahan dalam membalas pesan. "${message}", pesan tersebut berasal dari nomor ${sender}, munkin tokenku sudah habis. Cek segera!`;
+    let feedback_msg = `Bos, Ada kesalahan dalam membalas pesan. "${message}", pesan tersebut berasal dari nomor ${sender}, mungkin tokenku sudah habis. Cek segera!`;
     feedback(feedback_msg);
-    await sendFonnte(sender, random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)]); // Kirim pesan kesalahan
+    // await sendFonnte(sender, random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)]); // Kirim pesan kesalahan
     res.status(500).send({
         status: "ERROR",
         message: "Gagal membalas pesan",
