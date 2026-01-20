@@ -192,7 +192,7 @@ async function formatDataInstagram(data) {
 
 async function checkMessage(data) {
   const {sender, message} = data;
-  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selaknya manusia berdialog!. "${message}"`;
+  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selayaknya manusia berdialog!. "${message}"`;
   options.data.messages[0].content = content;
   
   let reply = "";
@@ -202,7 +202,8 @@ async function checkMessage(data) {
   }else if(sender === "6283852913242"){
     reply = "Maaf Fia, Ivi tidak mengijinkanku merespon kamu.";
   }else{
-    reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
+    // reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
+    reply = "Hai, Saya Bobi AI, Untuk dapat berbicara dengan saya, silakan hubungi Bos saya di nomor 083874809704 Atas nama Abdul Rahman Jaelani. Terima kasih!";
 
     // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
     let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
