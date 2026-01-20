@@ -196,7 +196,7 @@ async function checkMessage(data) {
   options.data.messages[0].content = content;
   
   let reply = "";
-  if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434"){
+  if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434" || sender === "6289653173605"){
     const response = await axios.request(options);
     reply = response.data.result;
   }else if(sender === "6283852913242"){
