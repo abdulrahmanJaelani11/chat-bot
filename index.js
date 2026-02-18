@@ -4,10 +4,10 @@ const axios = require("axios");
 // randikaangga9044@gmail.com - CHATGPT 4
 const options = {
   method: 'POST',
-  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
+  url: 'https://open-ai21.p.rapidapi.com/conversationllama',
   headers: {
     'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
   data: {
@@ -20,6 +20,7 @@ const options = {
     web_access: false
   }
 };
+
 let pesan_global = {
   "Ivi": "",
   "Bobi": ""
@@ -259,8 +260,8 @@ app.post("/webhook", async (req, res) => {
       const reply = await kirimPerintah({sender, perintah});
       await sendFonnte(no_tujuan, reply);
     }else{
-      // const reply = await checkMessage({sender, message});
-      const reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
+      const reply = await checkMessage({sender, message});
+      // const reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
     }
   } catch (error) {
