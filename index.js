@@ -235,7 +235,6 @@ app.get("/webhook", (req, res) => {
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.post("/webhook", async (req, res) => {
   const { message, sender } = req.body; // Data dari WhatsApp API
-  const reply = "";
   try {
     if(message.includes("ig:")){
       const username = message.split(":")[1];
@@ -260,11 +259,8 @@ app.post("/webhook", async (req, res) => {
       const reply = await kirimPerintah({sender, perintah});
       await sendFonnte(no_tujuan, reply);
     }else{
-      try {
-        reply = await checkMessage({sender, message});
-      } catch (error) {
-        reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
-      }
+      // const reply = await checkMessage({sender, message});
+      const reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
     }
   } catch (error) {
