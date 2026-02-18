@@ -192,18 +192,16 @@ async function formatDataInstagram(data) {
 
 async function checkMessage(data) {
   const {sender, message} = data;
-  let content = `Dalam konteks ini nama kamu Bobi. Respon aku selayaknya manusia berdialog!. "${message}"`;
+  let content = `Dalam konteks ini nama kamu Bobi AI. Respon aku selayaknya manusia berdialog!. "${message}"`;
   options.data.messages[0].content = content;
   
   let reply = "";
-  if(sender === "6285952403737" || sender === "6283874809704" || sender === "62895801174434" || sender === "6289653173605"){
+  if(["6283874809704", "6289653173605"].includes(sender)){
     const response = await axios.request(options);
     reply = response.data.result;
-  }else if(sender === "6283852913242"){
-    reply = "Maaf Fia, Ivi tidak mengijinkanku merespon kamu.";
   }else{
     // reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
-    reply = "Hai, Saya Bobi AI, Untuk dapat berbicara dengan saya, silakan hubungi Bos saya di nomor 083874809704 Atas nama Abdul Rahman Jaelani. Terima kasih!";
+    reply = "Hai, Saya Bobi AI, Untuk dapat berbicara dengan saya, silakan hubungi Tuan saya atas nama Abdul Rahman Jaelani. Terima kasih!";
 
     // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
     let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
@@ -253,13 +251,13 @@ app.post("/webhook", async (req, res) => {
     }else if(message.includes("perintah:")){
       const perintah = message.split(":")[1];
       const reply = await kirimPerintah({sender, perintah});
-      await sendFonnte('085952403737', reply); //'085952403737'
+      await sendFonnte('089653173605', reply);
       // await sendFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
     }else if(message.includes("perintah_ke:")){ // contoh perintah_ke:083874809704:tolong tanyakan kabar
       const no_tujuan = message.split(":")[1];
       const perintah = message.split(":")[2];
       const reply = await kirimPerintah({sender, perintah});
-      await sendFonnte(no_tujuan, reply); //'085952403737'
+      await sendFonnte(no_tujuan, reply);
     }else{
       const reply = await checkMessage({sender, message});
       await sendFonnte(sender, reply); // Kirim balasan ke pengirim pesan
