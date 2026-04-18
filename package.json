@@ -2,7 +2,7 @@
   "name": "chat-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app"
@@ -12,7 +12,10 @@
   "dependencies": {
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
-    "express": "^4.21.2"
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "pg": "^8.20.0",
+    "router": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
