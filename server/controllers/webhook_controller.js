@@ -75,6 +75,21 @@ class Controller {
                 }catch(error){
                     response(500, null, "Gagal mendapatkan info tabungan", res, error);
                 }
+            }else if(message.includes("hapus tabungan")){
+                try{
+                    let body = message.split("@")[1];
+                    let data = body.split("-");
+                    let nama_anggota = data[0];
+                    let tahun = data[1];
+                    let bulan = data[2];
+                    let formData = {nama_anggota, tahun, bulan};
+
+                    let reply = await PerencanaanDanaController.deleteTabungan(formData);
+                    await sendMessage(sender, reply);
+                    response(200, reply, reply, res, null);
+                }catch(error){
+                    response(500, null, "Gagal mendapatkan info tabungan", res, error);
+                }
             }else{
                 const reply = await checkMessage({sender, message});
                 // const reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";

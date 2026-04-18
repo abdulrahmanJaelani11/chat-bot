@@ -41,7 +41,22 @@ class PerencanaanDanaController {
             let data = await PerencanaanDanaModel.insertTabungan(formData);
             let response = "Galgal menambahkan data tabungan";
             if(data){
-                response = "Berhasil menambahkan data tabungan";
+                formData.nominal_tabungan_masuk = parseInt(formData.nominal_tabungan_masuk).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                response = `Berhasil menambahkan data tabungan\n\n🗓️Tahun : ${formData.tahun}\n🗓️Bulan : ${formData.bulan}\n💰Nominal Tabungan Masuk : ${formData.nominal_tabungan_masuk}\n\n📋Hari ini kamu milih jadi versi kamu yang lebih bijak. Tabungan ini bakal jadi saksi perjuangan kamu. Semangat, sedikit demi sedikit lama-lama jadi bukit.😊\n\nSemangat Terus ya, Inget Kita itu Punya Cita-Cita yang perlu Di Realisasikan!🔥`;
+
+            }
+            return response;
+        } catch (error) {
+            response(500, null, "Gagal mendapatkan data perencanaan", res, error);
+        }   
+    }
+
+    static async deleteTabungan(formData){
+        try {
+            let data = await PerencanaanDanaModel.deleteTabungan(formData);
+            let response = "Galgal menghapus data tabungan";
+            if(data){
+                response = "Berhasil menghapus data tabungan";
             }
             return response;
         } catch (error) {
