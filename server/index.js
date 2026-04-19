@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const db = require("./config/database");
+const cors = require("cors");
 
-const Route = require('./routes/webhook_route')
+const Route = require('./routes/webhook_route');
+const PerencanaanDanaRoute = require('./routes/perencanaan_dana_route');
 // randikaangga9044@gmail.com - CHATGPT 4
 const options = {
   method: 'POST',
@@ -81,6 +83,7 @@ const random_reject_msg = [
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 async function getDataInstagram(username) {
   
@@ -170,6 +173,7 @@ app.get("/webhook", (req, res) => {
 });
 // Endpoint untuk menerima pesan dari WhatsApp API
 app.use("/api", Route);
+app.use("/api", PerencanaanDanaRoute);
 
 // Jalankan server
 app.listen(3000, () => console.log("Server running on port 3000"));
