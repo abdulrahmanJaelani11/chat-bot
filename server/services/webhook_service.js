@@ -70,7 +70,7 @@ class WebhookService {
           options.data.messages[0].content = content;
           
           let reply = "";
-          if(["6283874809704", "6289653173605"].includes(sender)){
+          if(["6283874809702", "6289653173605"].includes(sender)){
             const response = await axios.request(options);
             reply = response.data.result;
           }else{
@@ -79,9 +79,13 @@ class WebhookService {
         
             // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
             let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
-            feedback(feedback_msg);
+            this.feedback(feedback_msg);
           }
           return reply;
+    }
+
+    static async feedback(feedback_msg) {
+      this.sendMessage('6283874809704', feedback_msg);
     }
 }
 

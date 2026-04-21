@@ -1,6 +1,43 @@
 let db = require('../config/database');
 
 class PerencanaanDanaModel {
+    static async getData() {
+        try {            
+            let query = 'SELECT a.id, b.nama_lengkap, c.nama_target, a.nominal_target_dana, a.nominal_estimasi, a.nominal_dana_awal, a.durasi, a.nominal_target_perbulan, a.total_tabungan, a.nominal_blm_tercapai, d.nama_lengkap as dibuat_oleh, a.created_date FROM perencanaan_dana AS a JOIN ref_anggota AS b ON a.id_anggota = b.id JOIN ref_jenis_target AS c ON a.id_jenis = c.id JOIN ref_anggota AS d ON a.created_by = d.id ORDER BY a.id ASC';
+            let result = await db.query(query);
+            return result.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    static async getDataInfoPerencanaanDanaById(id) {
+        try {
+            let query = `
+                SELECT 
+                    a.*, 
+                    b.nama_lengkap, 
+                    c.nama_target 
+                FROM 
+                    perencanaan_dana AS a 
+                JOIN 
+                    ref_anggota AS b 
+                ON 
+                    a.id_anggota = b.id 
+                JOIN 
+                    ref_jenis_target AS c 
+                ON 
+                    a.id_jenis = c.id 
+                WHERE 
+                    a.id = $1
+            `;
+            let result = await db.query(query, [id]);
+            return result.rows[0] ?? null;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
     static async getDataInfoPerencanaanDana(nama_anggota) {
         try {
             let query = `

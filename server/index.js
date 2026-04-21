@@ -26,10 +26,6 @@ const options = {
   }
 };
 
-let pesan_global = {
-  "Ivi": "",
-  "Bobi": ""
-};
 const random_reject_msg = [
   "Maaf, saya tidak bisa membantu dengan itu.",
   "Mohon maaf, saya tidak memiliki informasi yang Anda cari.",
@@ -158,10 +154,6 @@ async function kirimPerintah(data) {
   let reply = response.data.result;
 
   return reply;
-}
-
-async function feedback(feedback_msg) {
-  sendFonnte('6283874809704', feedback_msg);
 }
 
 app.get("/", (req, res) => {

@@ -1,11 +1,44 @@
 let express = require("express");
 let response = require("../response");
+let moment = require("moment");
+const hasher = require("../services/hashids");
 
 let PerencanaanDanaModel = require("../models/perencanaan_dana_model");
 let PerencanaanDanaService = require("../services/perencanaan_dana_service");
 const { formatListAnggota, formaInfoPerencanaanDana, formatInfoTabungan, formatInfoEstimasiBiaya } = PerencanaanDanaService;
 
 class PerencanaanDanaController {
+    static async getAllPerencanaanDana(req, res) {
+        try {
+            let data = await PerencanaanDanaModel.getData();
+            data.forEach(item => {
+                item.id = hasher.encode(item.id);
+                item.nominal_target_dana = parseInt(item.nominal_target_dana).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.nominal_estimasi = parseInt(item.nominal_estimasi).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.nominal_dana_awal = parseInt(item.nominal_dana_awal).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.nominal_target_perbulan = parseInt(item.nominal_target_perbulan).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.total_tabungan = parseInt(item.total_tabungan).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.nominal_blm_tercapai = parseInt(item.nominal_blm_tercapai).toLocaleString("id-ID", {style: "currency", currency: "IDR"});
+                item.created_date = moment(item.created_date).locale("id").format("LL, LTS");
+            });
+            response(200, data, "Berhasil Mendapatkan Data Perencanaan Dana", res, null);
+        } catch (error) {
+            response(500, null, "Gagal Mendapatkan Data Perencanaan Dana", res, error);
+        }
+    }
+    
+    static async getInfoPerencanaanDanaById(req, res){
+        try {
+            let id = hasher.decode(req.params.id);
+            let data = await PerencanaanDanaModel.getDataInfoPerencanaanDanaById(id);
+            data.id = hasher.encode(data.id);
+            data.id_anggota = hasher.encode(data.id_anggota);
+            response(200, data, "Berhasil Mendapatkan Data Perencanaan Dana", res, null);
+        } catch (error) {
+            response(500, null, "Gagal mendapatkan data perencanaan", res, error);
+        }   
+    }
+    
     static async getInfoPerencanaanDana(nama_anggota){
         try {
             let data = await PerencanaanDanaModel.getDataInfoPerencanaanDana(nama_anggota);

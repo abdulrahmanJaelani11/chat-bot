@@ -92,7 +92,6 @@ class Controller {
                 }
             }else{
                 const reply = await checkMessage({sender, message});
-                // const reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
                 await sendMessage(sender, reply); // Kirim balasan ke pengirim pesan
             }
             

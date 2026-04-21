@@ -3,7 +3,7 @@ let db = require('../config/database');
 class MenuModel {
     static async getDataMenu() {
         try {
-            let query = 'SELECT * FROM sec_menu';
+            let query = 'SELECT * FROM sec_menu ORDER BY id ASC';
             let result = await db.query(query);
             return result.rows;
         } catch (error) {
