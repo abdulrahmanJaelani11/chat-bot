@@ -7,24 +7,6 @@ const cors = require("cors");
 const Route = require('./routes/webhook_route');
 const PerencanaanDanaRoute = require('./routes/perencanaan_dana_route');
 // randikaangga9044@gmail.com - CHATGPT 4
-const options = {
-  method: 'POST',
-  url: 'https://open-ai21.p.rapidapi.com/conversationllama',
-  headers: {
-    'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
-    'Content-Type': 'application/json'
-  },
-  data: {
-    messages: [
-      {
-        role: 'user',
-        content: 'hi'
-      }
-    ],
-    web_access: false
-  }
-};
 
 const random_reject_msg = [
   "Maaf, saya tidak bisa membantu dengan itu.",

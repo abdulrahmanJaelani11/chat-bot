@@ -24,6 +24,24 @@ const headers_fonnte = {
         "Content-Type": "application/json",
     }
 };
+const options_ai = {
+  method: 'POST',
+  url: 'https://open-ai21.p.rapidapi.com/conversationllama',
+  headers: {
+    'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
+    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
+    'Content-Type': 'application/json'
+  },
+  data: {
+    messages: [
+      {
+        role: 'user',
+        content: 'hi'
+      }
+    ],
+    web_access: false
+  }
+};
 
 class WebhookService {
     static async sendMessage(sender, message) {
@@ -65,9 +83,9 @@ class WebhookService {
     }
 
     static async checkMessage(data){
-        const {sender, message} = data;
+          const {sender, message} = data;
           let content = `Dalam konteks ini nama kamu Bobi AI. Respon aku selayaknya manusia berdialog!. "${message}"`;
-          options.data.messages[0].content = content;
+          options_ai.data.messages[0].content = content;
           
           let reply = "";
           if(["6283874809702", "6289653173605"].includes(sender)){
@@ -75,11 +93,11 @@ class WebhookService {
             reply = response.data.result;
           }else{
             // reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
-            reply = "Hai, Saya Bobi AI, Untuk dapat berbicara dengan saya, silakan hubungi Tuan saya atas nama Abdul Rahman Jaelani. Terima kasih!";
+            reply = "Hai, Saya Bobi AI, Asisten Virtual yang siap membantu kamu! Namun, untuk saat ini aku hanya bisa merespon pesan dari nomor yang sudah terdaftar. Jika kamu ingin mendapatkan akses penuh ke layanan AI ini, silakan daftar dengan cara mengirim pesan dengan format: 'daftar:Nama#No.WA' ke nomor ini.\n\nContoh :\ndaftar:Abdurahman#083176551803\n\nSetelah itu, aku akan segera memproses pendaftaranmu dan memberikan akses ke layanan AI yang seru ini. Terima kasih sudah menghubungi Bobi AI, aku tunggu pesan daftarmu ya!😊";
         
             // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
             let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
-            this.feedback(feedback_msg);
+            WebhookService.feedback(feedback_msg);
           }
           return reply;
     }
