@@ -27,7 +27,7 @@ class WebhookModel {
             const {nama, nomor_wa} = data;
             let date = new Date();
 
-            let query = `INSERT INTO ref_akses (nama, no_wa, status, created_date) VALUES ($1, $2, ${date}, true)`;
+            let query = `INSERT INTO ref_akses (nama, no_wa, status) VALUES ($1, $2, true)`;
             let values = [nama, nomor_wa];
             await db.query(query, values);
             return "Berhasil mendaftar akses. Silakan tunggu konfirmasi dari admin untuk mendapatkan akses penuh.";

@@ -98,7 +98,7 @@ class Controller {
                     let nama = data[0];
                     let nomor_wa = data[1];
                     let formData = {nama, nomor_wa};
-                    const reply = WebhooModel.daftarAkses(formData);
+                    let reply = WebhooModel.daftarAkses(formData);
                     response(200, formData, reply, res, null);
                 }catch(error){
                     response(500, null, "Gagal mendapatkan info tabungan", res, error);
