@@ -83,12 +83,12 @@ class WebhookService {
     }
 
     static async checkMessage(data){
-          const {sender, message} = data;
+          const {sender, message, arr_akses} = data;
           let content = `Dalam konteks ini nama kamu Bobi AI. Respon aku selayaknya manusia berdialog!. "${message}"`;
           options_ai.data.messages[0].content = content;
           
           let reply = "";
-          if(["6283874809702", "6289653173605"].includes(sender)){
+          if(arr_akses.includes(sender)){
             const response = await axios.request(options);
             reply = response.data.result;
           }else{

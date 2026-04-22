@@ -2,6 +2,7 @@ let express = require("express");
 let response = require("../response");
 
 const PerencanaanDanaController = require("./perencanaan_dana_controller");
+const WebhooModel = require("../models/webhook_model");
 let WebhookService = require("../services/webhook_service");
 let {checkMessage, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram} = WebhookService;
 
@@ -90,8 +91,22 @@ class Controller {
                 }catch(error){
                     response(500, null, "Gagal mendapatkan info tabungan", res, error);
                 }
+            }else if(message.includes("daftar:")){
+                try{
+                    let body = message.split(":")[1];
+                    let data = body.split("#");
+                    let nama = data[0];
+                    let nomor_wa = data[1];
+                    let formData = {nama, nomor_wa};
+                    const reply = WebhooModel.daftarAkses(formData);
+                    response(200, formData, reply, res, null);
+                }catch(error){
+                    response(500, null, "Gagal mendapatkan info tabungan", res, error);
+                }
             }else{
-                const reply = await checkMessage({sender, message});
+                const akses = await WebhooModel.getAkses(sender);
+                let arr_akses = akses.map(item => item.no_wa);
+                const reply = await checkMessage({sender, message, arr_akses});
                 await sendMessage(sender, reply); // Kirim balasan ke pengirim pesan
             }
             
