@@ -36,7 +36,7 @@ class WebhookModel {
             let query = `INSERT INTO ref_akses (nama, no_wa, status) VALUES ($1, $2, true)`;
             let values = [nama, nomor_wa];
             await db.query(query, values);
-            return `Berhasil mendaftarkan :\nNama : ${nama}\nNo. WA : ${nomor_wa}.😊.`;
+            return `Berhasil mendaftarkan :\n\nNama : ${nama}\nNo. WA : ${nomor_wa}.`;
         } catch (error) {
             throw error;
         }

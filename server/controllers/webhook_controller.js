@@ -4,12 +4,12 @@ let response = require("../response");
 const PerencanaanDanaController = require("./perencanaan_dana_controller");
 let WebhookModel = require("../models/webhook_model");
 let WebhookService = require("../services/webhook_service");
-let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses} = WebhookService;
+let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses, formatWhatsAppNumber} = WebhookService;
 
 
 class Controller {
     static async ChatAI(req, res) {
-        try {
+        // try {
             let {sender, message} = req.body;
             let akses = await cekAkses(sender);
             if(message.includes("daftar:")){
@@ -17,7 +17,7 @@ class Controller {
                     let body = message.split(":")[1];
                     let data = body.split("#");
                     let nama = data[0];
-                    let nomor_wa = data[1];
+                    let nomor_wa = formatWhatsAppNumber(data[1]);
                     let formData = {nama, nomor_wa};
                     let reply = await WebhookModel.daftarAkses(formData);
                     await sendMessage(sender, reply);
@@ -119,13 +119,15 @@ class Controller {
                     try{
                         let data = await WebhookModel.getAkses();
                         data = await formatDaftarAkses(data);
-                        await sendMessage(sender, data.join("\n\n"));
+                        await sendMessage(sender, data.join("\n"));
                         response(200, data, 'Berhasil mendapatkan data akses', res, null);
                     }catch(error){
                         response(500, null, "Gagal mendapatkan info tabungan", res, error);
                     }
                 }else{
-                    dialogAi({sender, message, arr_akses});
+                    const reply = await dialogAi({sender, message});
+                    await sendMessage(sender, reply);
+                    response(200, reply, "Berhasil mendapatkan respon AI", res, null);
                 }
             } else{
                 let reply = "Hai, Saya Bobi AI, Asisten Virtual yang siap membantu kamu! Namun, untuk saat ini aku hanya bisa merespon pesan dari nomor yang sudah terdaftar saja.😊";
@@ -136,9 +138,9 @@ class Controller {
                 response(200, req.body, "Berhasil mengirimkan response", res, null);
             }
             
-        } catch (error) {
-            response(500, req.body, "Gagal mendapatkan perencanaan dana", res, error);
-        }
+        // } catch (error) {
+        //     response(500, req.body, "Gagal mendapatkan perencanaan dana", res, error);
+        // }
     }
 }
 

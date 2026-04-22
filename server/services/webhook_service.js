@@ -92,7 +92,8 @@ class WebhookService {
           let reply = "";
           const response = await axios.request(options_ai);
           reply = response.data.result;
-          WebhookService.sendMessage(sender, reply);
+          return reply;
+
     }
 
     static async feedback(feedback_msg) {
@@ -108,7 +109,7 @@ class WebhookService {
 
     static async formatDaftarAkses(data) {
       let response = "Berikut daftar akses yang terdaftar:\n\n"; 
-      response = data.map(item => `🤵Nama : ${item.nama} (${item.no_wa})`);
+      response += data.map(item => `🤵Nama : ${item.nama} (${item.no_wa})`);
       return response;
     }
 
