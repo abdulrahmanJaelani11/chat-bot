@@ -1,5 +1,7 @@
 let axios = require('axios');
 
+let WebhookModel = require("../models/webhook_model");
+
 let options = {
     method: 'GET',
     url: '',
@@ -82,28 +84,39 @@ class WebhookService {
       return formattedData;
     }
 
-    static async checkMessage(data){
+    static async dialogAi(data){
           const {sender, message, arr_akses} = data;
           let content = `Dalam konteks ini nama kamu Bobi AI. Respon aku selayaknya manusia berdialog!. "${message}"`;
           options_ai.data.messages[0].content = content;
           
           let reply = "";
-          if(arr_akses.includes(sender)){
-            const response = await axios.request(options);
-            reply = response.data.result;
-          }else{
-            // reply = random_reject_msg[Math.floor(Math.random() * random_reject_msg.length)];
-            reply = "Hai, Saya Bobi AI, Asisten Virtual yang siap membantu kamu! Namun, untuk saat ini aku hanya bisa merespon pesan dari nomor yang sudah terdaftar. Jika kamu ingin mendapatkan akses penuh ke layanan AI ini, silakan daftar dengan cara mengirim pesan dengan format: 'daftar:Nama#No.WA' ke nomor ini.\n\nContoh :\ndaftar:Abdurahman#083176551803\n\nSetelah itu, aku akan segera memproses pendaftaranmu dan memberikan akses ke layanan AI yang seru ini. Terima kasih sudah menghubungi Bobi AI, aku tunggu pesan daftarmu ya!😊";
-        
-            // Mengirimkan informasi ke Developer ketika ada nomor yang tidak dikenal/diizinkan menghubungi
-            let feedback_msg = `Bos, Ada nomor tidak dikenal berusaha menghubungi aku. "${message}", pesan tersebut berasal dari nomor ${sender}`;
-            WebhookService.feedback(feedback_msg);
-          }
-          return reply;
+          const response = await axios.request(options_ai);
+          reply = response.data.result;
+          WebhookService.sendMessage(sender, reply);
     }
 
     static async feedback(feedback_msg) {
-      this.sendMessage('6283874809704', feedback_msg);
+      WebhookService.sendMessage('6283874809704', feedback_msg);
+    }
+
+    static async cekAkses(sender) {
+      const akses = await WebhookModel.getAkses(sender);
+      let arr_akses = akses.map(item => WebhookService.formatWhatsAppNumber(item.no_wa));
+      let acc = arr_akses.includes(sender);
+      return acc;
+    }
+
+    static async formatDaftarAkses(data) {
+      let response = "Berikut daftar akses yang terdaftar:\n\n"; 
+      response = data.map(item => `🤵Nama : ${item.nama} (${item.no_wa})`);
+      return response;
+    }
+
+    static formatWhatsAppNumber(number) {
+      if (number.startsWith('0')) {
+      return '62' + number.slice(1);
+      }
+      return number;
     }
 }
 
