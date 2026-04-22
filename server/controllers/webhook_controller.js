@@ -106,8 +106,8 @@ class Controller {
             }else{
                 const akses = await WebhooModel.getAkses(sender);
                 let arr_akses = akses.map(item => item.no_wa);
-                const reply = await checkMessage({sender, message, arr_akses});
-                await sendMessage(sender, reply); // Kirim balasan ke pengirim pesan
+                // const reply = await checkMessage({sender, message, arr_akses});
+                // await sendMessage(sender, reply); // Kirim balasan ke pengirim pesan
             }
             
             // response(200, req.body, "Berhasil mendapatkan semua perencanaan dana", res, null);
