@@ -119,10 +119,10 @@ class Controller {
                     try{
                         let data = await WebhookModel.getAkses();
                         data = await formatDaftarAkses(data);
-                        await sendMessage(sender, data.join("\n"));
+                        await sendMessage(sender, data);
                         response(200, data, 'Berhasil mendapatkan data akses', res, null);
                     }catch(error){
-                        response(500, null, "Gagal mendapatkan info tabungan", res, error);
+                        response(500, null, "Gagal mendapatkan data akses", res, error);
                     }
                 }else{
                     const reply = await dialogAi({sender, message});

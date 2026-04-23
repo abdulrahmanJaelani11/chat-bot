@@ -108,8 +108,8 @@ class WebhookService {
     }
 
     static async formatDaftarAkses(data) {
-      let response = "Berikut daftar akses yang terdaftar:\n\n"; 
-      response += data.map(item => `🤵Nama : ${item.nama} (${item.no_wa})`);
+      let response = "Berikut daftar nomor whatsApp yang terdaftar:\n\n"; 
+      response += data.map(item => `🤵Nama : ${item.nama} (${item.no_wa})`).join("\n");
       return response;
     }
 
