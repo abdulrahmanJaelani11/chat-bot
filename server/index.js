@@ -127,17 +127,6 @@ async function getStroryInstagram(username) {
   }
 }
 
-async function kirimPerintah(data) {
-  const {sender, perintah} = data;
-  const content = `Dalam konteks ini nama aku Ivi. "${perintah}", Hanya berikan kata katanya!`;
-  options.data.messages[0].content = content;
-  
-  const response = await axios.request(options);
-  let reply = response.data.result;
-
-  return reply;
-}
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

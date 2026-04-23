@@ -4,7 +4,7 @@ let response = require("../response");
 const PerencanaanDanaController = require("./perencanaan_dana_controller");
 let WebhookModel = require("../models/webhook_model");
 let WebhookService = require("../services/webhook_service");
-let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses, formatWhatsAppNumber} = WebhookService;
+let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses, formatWhatsAppNumber, kirimPerintah, formatAkun} = WebhookService;
 
 
 class Controller {
@@ -43,11 +43,14 @@ class Controller {
                     const reply = await kirimPerintah({sender, perintah});
                     endFonnte('089653173605', reply);
                 //  endFonnte(sender, "Sudah Bos, Sudah saya sampaikan ke Ivi!");
-                }else if(message.includes("perintah_ke:")){ // contoh perintah_ke:083874809704:tolong tanyakan kabar
+                }else if(message.includes("perintah_ke:")){
+                    // contoh perintah_ke:083874809704:tolong tanyakan kabar
                     const no_tujuan = message.split(":")[1];
                     const perintah = message.split(":")[2];
                     const reply = await kirimPerintah({sender, perintah});
                     await sendMessage(no_tujuan, reply);
+                    let feedback_msg = `Bos, Perintah untuk nomor ${no_tujuan} dengan isi perintah "${perintah}". Sudah saya sampaikan ya!😊`;
+                    await sendMessage(sender, feedback_msg);
                 }else if(message.includes("tampilkan info perencanaan dana @")){
                     try{
                         let nama_anggota = message.split("@")[1];
@@ -123,6 +126,29 @@ class Controller {
                         response(200, data, 'Berhasil mendapatkan data akses', res, null);
                     }catch(error){
                         response(500, null, "Gagal mendapatkan data akses", res, error);
+                    }
+                }else if(message.includes("tambahkan akun:")){
+                    try{
+                        let body = message.split(":");
+                        let nama_app = body[1];
+                        let username = body[2];
+                        let password = body[3];
+                        let link = body[4];
+                        let formData = {nama_app, username, password, link};
+                        let reply = await WebhookModel.insertAkun(formData);
+                        await sendMessage(sender, reply);
+                        response(200, formData, reply, res, null);
+                    }catch(error){
+                        response(500, null, "Gagal mendapatkan menambahkan akun", res, error);
+                    }
+                }else if(message.includes("tampilkan akun")){
+                    try{
+                        let data = await WebhookModel.getAkun();
+                        let response_akun = await formatAkun(data);
+                        await sendMessage(sender, response_akun);
+                        response(200, response_akun, 'Berhasil mendapatkan data akun', res, null);
+                    }catch(error){
+                        response(500, null, "Gagal mendapatkan data akun", res, error);
                     }
                 }else{
                     const reply = await dialogAi({sender, message});

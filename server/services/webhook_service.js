@@ -124,6 +124,28 @@ class WebhookService {
       }
       return number;
     }
+    
+    static async kirimPerintah(data) {
+      const {sender, message} = data;
+      const content = message;
+      options_ai.data.messages[0].content = content;
+      
+      let reply = "";
+      try {
+      const response = await axios.request(options_ai);
+      reply = response.data.result;
+      } catch (error) {
+        console.error(error);
+        reply = "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";  
+      }
+      return reply;
+    }
+
+    static async formatAkun(data) {
+      let response = "Berikut daftar akun yang terdaftar:\n\n";
+      response += data.map(item => `📱Nama App : ${item.nama_app}\n👤Username : ${item.username}\n🔒Password : ${item.password}\n🔗Link : ${item.link}\n`).join("\n");
+      return response;
+    }
 }
 
 module.exports = WebhookService;

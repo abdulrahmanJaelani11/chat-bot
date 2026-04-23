@@ -65,6 +65,30 @@ class WebhookModel {
             throw error;
         }
     }
+
+    static async insertAkun(data) {
+        try {
+            const {nama_app, username, password, link} = data;
+            let query = `INSERT INTO akun_manajer (nama_app, username, password, link) VALUES ($1, $2, $3, $4)`;
+            let values = [nama_app, username, password, link];
+            await db.query(query, values);
+            return `Berhasil menambahkan akun ${nama_app} dengan username ${username}.`;
+        } catch (error) {
+            return `Gagal menambahkan akun ${nama_app} dengan username ${username}.`;
+        }
+    }
+
+    static async getAkun() {
+        try {
+            let query = `SELECT * FROM akun_manajer`;
+            let response = await db.query(query);
+            response = response.rows;
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 module.exports = WebhookModel;
