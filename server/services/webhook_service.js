@@ -28,10 +28,10 @@ const headers_fonnte = {
 };
 const options_ai = {
   method: 'POST',
-  url: 'https://open-ai21.p.rapidapi.com/conversationllama',
+  url: 'https://chatgpt-42.p.rapidapi.com/conversationgpt4-2',
   headers: {
     'x-rapidapi-key': 'a30f642922msh8d1d18a8a6bdd3dp1cb95fjsn4830addab684',
-    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
+    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
     'Content-Type': 'application/json'
   },
   data: {
@@ -89,10 +89,15 @@ class WebhookService {
           let content = `Dalam konteks ini nama kamu Bobi AI. Respon aku selayaknya manusia berdialog!. "${message}"`;
           options_ai.data.messages[0].content = content;
           
-          let reply = "";
-          const response = await axios.request(options_ai);
-          reply = response.data.result;
-          return reply;
+          try {
+            let reply = "";
+            const response = await axios.request(options_ai);
+            reply = response.data.result;
+            return reply;
+          } catch (error) {
+            console.error(error);
+            return "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";  
+          }
 
     }
 
