@@ -22,6 +22,14 @@ class TabunganModel {
             throw error;
         }
     }
+
+    static async insertTabungan(data) {
+        try {
+            console.log(data);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = TabunganModel;

@@ -20,6 +20,16 @@ class TabunganController {
             response(500, data, "Gagal Mendapatkan Data Tabungan", res, null);
         }
     }
+
+    static async insertTabungan(req, res) {
+        try {
+            let data = req.body;
+            await TabunganModel.insertTabungan(data);
+            response(200, null, "Berhasil Menambahkan Data Tabungan", res, null);
+        } catch (error) {
+            response(500, null, "Gagal Menambahkan Data Tabungan", res, null);
+        }
+    }
 }
 
 module.exports = TabunganController;

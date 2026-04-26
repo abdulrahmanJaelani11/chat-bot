@@ -106,6 +106,16 @@ class PerencanaanDanaController {
             response(500, null, "Gagal mendapatkan data anggota", res, error);
         }
     }
+
+    static async savePerencanaanDana(req, res) {
+        let data = req.body;
+        // try {
+            let result = await PerencanaanDanaModel.insertPerencanaanDana(data, true);
+            response(200, result, "Berhasil Menyimpan Data Perencanaan Dana", res, null);
+        // } catch (error) {
+        //     response(500, null, "Gagal Menyimpan Data Perencanaan Dana", res, error);
+        // }
+    }
 }
 
 module.exports = PerencanaanDanaController;

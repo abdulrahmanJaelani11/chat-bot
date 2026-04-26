@@ -155,6 +155,26 @@ class PerencanaanDanaModel {
             throw error;
         }
     }
+
+    static async insertPerencanaanDana(data, isNew = false) {
+        // try {
+            const {id_anggota, jenis_target, nominal_target_dana, nominal_estimasi_biaya, nominal_dana_awal, durasi} = data;
+            const nominal_target_perbulan = Math.ceil(nominal_target_dana / durasi);
+            let query;
+            let values;
+            if(isNew) {
+                query = `INSERT INTO perencanaan_dana (id_anggota, id_jenis, nominal_target_dana, nominal_estimasi, nominal_dana_awal, durasi, nominal_target_perbulan, total_tabungan, nominal_blm_tercapai, created_by) VALUES ($1, (SELECT id FROM ref_jenis_target WHERE nama_target = $2), $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+                values = [id_anggota, jenis_target, nominal_target_dana, nominal_estimasi_biaya, nominal_dana_awal, durasi, nominal_target_perbulan, 0, nominal_target_dana, id_anggota];
+            } else {
+                query = `UPDATE perencanaan_dana SET id_jenis = $1, nominal_target_dana = $2, nominal_estimasi = $3, nominal_dana_awal = $4, durasi = $5, nominal_target_perbulan = $6 WHERE id = $7 RETURNING id`;
+                values = [id_jenis, nominal_target_dana, nominal_estimasi, nominal_dana_awal, durasi, nominal_target_perbulan, data.id];
+            }
+            let result = await db.query(query, values);
+            return result.rows[0];
+        // } catch (error) {
+        //     throw error;
+        // }
+    }
 }
 
 module.exports = PerencanaanDanaModel;
