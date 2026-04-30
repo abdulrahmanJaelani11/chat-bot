@@ -10,6 +10,7 @@
   "author": "abdurahman",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.51.0",
     "axios": "^1.7.9",
     "bcrypt": "^6.0.0",
     "body-parser": "^1.20.3",

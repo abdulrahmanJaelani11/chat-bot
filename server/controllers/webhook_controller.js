@@ -4,7 +4,7 @@ let response = require("../response");
 const PerencanaanDanaController = require("./perencanaan_dana_controller");
 let WebhookModel = require("../models/webhook_model");
 let WebhookService = require("../services/webhook_service");
-let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses, formatWhatsAppNumber, kirimPerintah, formatAkun} = WebhookService;
+let {dialogAi, sendMessage, getDataInstagram, getFollowersInstagram, getStroryInstagram, cekAkses, formatDaftarAkses, formatWhatsAppNumber, kirimPerintah, formatAkun, sendGenAIMessage} = WebhookService;
 
 
 class Controller {
@@ -151,8 +151,8 @@ class Controller {
                         response(500, null, "Gagal mendapatkan data akun", res, error);
                     }
                 }else{
-                    const reply = await dialogAi({sender, message});
-                    await sendMessage(sender, reply);
+                    const reply = await sendGenAIMessage(sender, message);
+                    sendMessage(sender, reply);
                     response(200, reply, "Berhasil mendapatkan respon AI", res, null);
                 }
             } else{

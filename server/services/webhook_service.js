@@ -1,4 +1,5 @@
 let axios = require('axios');
+let { GoogleGenAI } = require('@google/genai');
 
 let WebhookModel = require("../models/webhook_model");
 
@@ -145,6 +146,24 @@ class WebhookService {
       let response = "Berikut daftar akun yang terdaftar:\n\n";
       response += data.map(item => `📱Nama App : ${item.nama_app}\n👤Username : ${item.username}\n🔒Password : ${item.password}\n🔗Link : ${item.link}\n`).join("\n");
       return response;
+    }
+
+    static async sendGenAIMessage(sender, message) {
+      const genai = new GoogleGenAI({
+        apiKey: process.env.GOOGLE_GENAI_KEY,
+      });
+
+      try {
+        const response = await genai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: message,
+        });
+        const reply = response.text;
+        await WebhookService.sendMessage(sender, reply);
+      } catch (error) {
+        console.error(error);
+        await WebhookService.sendMessage(sender, "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!");
+      }
     }
 }
 
