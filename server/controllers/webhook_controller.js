@@ -152,7 +152,7 @@ class Controller {
                     }
                 }else{
                     const reply = await sendGenAIMessage(sender, message);
-                    sendMessage(sender, reply);
+                    await sendMessage(sender, reply);
                     response(200, reply, "Berhasil mendapatkan respon AI", res, null);
                 }
             } else{
