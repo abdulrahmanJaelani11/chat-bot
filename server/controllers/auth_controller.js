@@ -33,7 +33,7 @@ class AuthController {
 
     static async login(req, res) {
         let { username, password } = req.body;
-        try {
+        // try {
             if(username.length === 0 || password.length === 0) {    
                 response(400, null, "Mohon untuk melengkapi form terlebih dahulu!", res, null);
                 return;
@@ -59,9 +59,9 @@ class AuthController {
             } else {
                 response(401, null, "Username yang anda masukan salah", res, null);
             }
-        } catch (error) {
-            response(500, null, "Gagal Login", res, null);
-        }
+        // } catch (error) {
+        //     response(500, null, "Gagal Login", res, null);
+        // }
     }
 
     static async verifyPassword(inputPassword, hashedPassword) {
