@@ -159,10 +159,10 @@ class WebhookService {
           contents: message,
         });
         const reply = response.text;
-        await WebhookService.sendMessage(sender, reply);
+        return reply;
       } catch (error) {
         console.error(error);
-        await WebhookService.sendMessage(sender, "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!");
+        return "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
       }
     }
 }
