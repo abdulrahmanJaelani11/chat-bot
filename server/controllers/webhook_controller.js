@@ -51,41 +51,42 @@ class Controller {
                     await sendMessage(no_tujuan, reply);
                     let feedback_msg = `Bos, Perintah untuk nomor ${no_tujuan} dengan isi perintah "${perintah}". Sudah saya sampaikan ya!😊`;
                     await sendMessage(sender, feedback_msg);
-                }else if(message.includes("tampilkan info perencanaan dana @")){
+                }else if(message.includes("tampilkan info perencanaan dana")){
                     try{
-                        let nama_anggota = message.split("@")[1];
+                        let nama_anggota = 'Abdul Rahman Jaelani';
                         let reply = await PerencanaanDanaController.getInfoPerencanaanDana(nama_anggota);
                         await sendMessage(sender, reply);
                         response(200, reply, "Berhasil mendapatkan info perencanaan dana", res, null);
                     }catch(error){
                         response(500, null, "Gagal mendapatkan info perencanaan dana", res, error);
                     }
-                }else if(message.includes("tampilkan info tabungan @")){
+                }else if(message.includes("tampilkan info tabungan")){
                     try{
-                        let nama_anggota = message.split("@")[1];
+                        let nama_anggota = 'Abdul Rahman Jaelani';
                         let reply = await PerencanaanDanaController.getInfoTabungan(nama_anggota);
                         await sendMessage(sender, reply);
                         response(200, reply, "Berhasil mendapatkan info tabungan", res, null);
                     }catch(error){
                         response(500, null, "Gagal mendapatkan info tabungan", res, error);
                     }
-                }else if(message.includes("tampilkan info estimasi biaya @")){
+                }else if(message.includes("tampilkan info estimasi biaya")){
                     try{
-                        let nama_anggota = message.split("@")[1];
+                        let nama_anggota = 'Abdul Rahman Jaelani';
                         let reply = await PerencanaanDanaController.getInfoEstimasiBiaya(nama_anggota);
                         await sendMessage(sender, reply);
-                        response(200, reply, "Berhasil mendapatkan info tabungan", res, null);
+                        response(200, reply, "Berhasil mendapatkan info estimasi biaya", res, null);
                     }catch(error){
-                        response(500, null, "Gagal mendapatkan info tabungan", res, error);
+                        response(500, null, "Gagal mendapatkan info estimasi biaya", res, error);
                     }
-                }else if(message.includes("tambahkan ke tabungan")){
+                }else if(message.includes("tambahkan ke tabungan:")){
+                    // tambahkan ke tabungan:2026-Mei-500000
                     try{
-                        let body = message.split("@")[1];
+                        let body = message.split(":")[1];
                         let data = body.split("-");
-                        let nama_anggota = data[0];
-                        let tahun = data[1];
-                        let bulan = data[2];
-                        let nominal_tabungan_masuk = data[3];
+                        let nama_anggota = "Abdul Rahman Jaelani";
+                        let tahun = data[0];
+                        let bulan = data[1];
+                        let nominal_tabungan_masuk = data[2];
                         let formData = {nama_anggota, tahun, bulan, nominal_tabungan_masuk};
 
                         let reply = await PerencanaanDanaController.addTabungan(formData);
@@ -94,13 +95,14 @@ class Controller {
                     }catch(error){
                         response(500, null, "Gagal mendapatkan info tabungan", res, error);
                     }
-                }else if(message.includes("hapus tabungan")){
+                }else if(message.includes("hapus tabungan:")){
+                    // hapus tabungan:2026-Mei
                     try{
-                        let body = message.split("@")[1];
+                        let body = message.split(":")[1];
                         let data = body.split("-");
-                        let nama_anggota = data[0];
-                        let tahun = data[1];
-                        let bulan = data[2];
+                        let nama_anggota = "Abdul Rahman Jaelani";
+                        let tahun = data[0];
+                        let bulan = data[1];
                         let formData = {nama_anggota, tahun, bulan};
 
                         let reply = await PerencanaanDanaController.deleteTabungan(formData);
@@ -114,6 +116,7 @@ class Controller {
                         let nomor_wa = message.split(":")[1];
                         let formData = {nomor_wa};
                         let reply = await WebhookModel.hapusAkses(formData);
+                        await sendMessage(sender, reply);
                         response(200, formData, reply, res, null);
                     }catch(error){
                         response(500, null, "Gagal mendapatkan info tabungan", res, error);
