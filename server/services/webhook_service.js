@@ -165,6 +165,21 @@ class WebhookService {
         return "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
       }
     }
+
+    static async getNextMatch() {
+      try {
+        let result = await axios.get('https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=139356');
+        console.log(result.data);
+        result = result.data;
+        let reply = `⚽Berikut adalah pertandingan berikutnya:\n\n`;
+        reply += result.events.map(event => `👑${event.strEvent}\nTanggal: ${event.dateEvent} ${event.strTimeLocal}\nLiga: ${event.strLeague}\nLokasi: ${event.strVenue}`).join("\n\n");
+        console.log(reply);
+        return reply;
+      } catch (error) {
+        console.error(error);
+        return "Maaf, layanan AI sedang mengalami gangguan dan sedang tidak bisa memberikan respon yang sesuai. Silakan coba lagi nanti ya. Terima kasih!";
+      }
+    }
 }
 
 module.exports = WebhookService;
