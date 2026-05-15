@@ -171,8 +171,8 @@ class WebhookService {
         let result = await axios.get('https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=139356');
         console.log(result.data);
         result = result.data;
-        let reply = `⚽Berikut adalah pertandingan berikutnya:\n\n`;
-        reply += result.events.map(event => `👑${event.strEvent}\nTanggal: ${event.dateEvent} ${event.strTimeLocal}\nLiga: ${event.strLeague}\nLokasi: ${event.strVenue}`).join("\n\n");
+        let reply = `Pertandingan Persib Selanjutnya adalah:\n\n`;
+        reply += result.events.map(event => `${event.strEvent}\nTanggal: ${event.dateEvent} ${event.strTimeLocal}\nLiga: ${event.strLeague}\nLokasi: ${event.strVenue}`).join("\n\n");
         console.log(reply);
         return reply;
       } catch (error) {
